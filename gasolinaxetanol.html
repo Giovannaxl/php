@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Comparador de Combustível</title>
+  <style>
+    body {
+      font-family: 'Courier New', Courier, monospace, sans-serif;
+      margin: 30px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input[type="number"] {
+      width: 150px;
+      padding: 5px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 8px 16px;
+    }
+    #resultado {
+      margin-top: 20px;
+      font-weight: bolder;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Comparador de Combustível</h1>
+
+  <form onsubmit="compararCombustivel(event)">
+    <label for="etanol">Preço do Etanol (R$):</label>
+    <input type="number" id="etanol" step="0.01" required>
+
+    <label for="gasolina">Preço da Gasolina (R$):</label>
+    <input type="number" id="gasolina" step="0.01" required>
+
+    <button type="submit">Calcular</button>
+  </form>
+
+  <div id="resultado"></div>
+
+  <script>
+    function compararCombustivel(event) {
+      event.preventDefault();
+
+      const etanol = parseFloat(document.getElementById("etanol").value);
+      const gasolina = parseFloat(document.getElementById("gasolina").value);
+      const limite = gasolina * 0.7;
+
+      let resultado = "";
+
+      if (etanol < limite) {
+        resultado = "✅ É mais vantajoso abastecer com **Etanol**.";
+      } else {
+        resultado = "⛽ É mais vantajoso abastecer com **Gasolina**.";
+      }
+
+      document.getElementById("resultado").innerHTML = resultado +
+        `<br><br>70% do preço da gasolina é: R$ ${limite.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
