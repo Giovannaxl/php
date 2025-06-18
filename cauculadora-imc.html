@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de IMC - Marie</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: #ffe6f0; /* Rosa bem claro */
+            color: #4b2e2e;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h2 {
+            color: #c0398f; /* Rosa mais escuro */
+            font-size: 34px;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background: #fff0f5; /* Fundo rosado */
+            padding: 35px 45px;
+            display: inline-block;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            font-size: 18px;
+            border: 3px solid #f9c2d1;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            font-weight: bold;
+            color: #a64d79;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            margin-top: 5px;
+            width: 250px;
+            font-size: 16px;
+            border: 2px solid #f7b6d2;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        input[type="submit"] {
+            background-color: #ffb6c1; /* Rosa bebê */
+            color: #4b2e2e;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 25px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ff99b8;
+        }
+
+        .resultado {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #4b2e2e;
+            background-color: #fff0f5;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed #f7b6d2;
+            display: inline-block;
+        }
+
+        strong {
+            color: #d12c86;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora de IMC da Gatinha Marie 🐾</h2>
+
+    <form method="post">
+        <label for="peso">Peso (kg):</label>
+        <input type="number" name="peso" step="0.1" required>
+
+        <label for="altura">Altura (m):</label>
+        <input type="number" name="altura" step="0.01" required>
+
+        <br>
+        <input type="submit" value="Calcular IMC 💗">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $peso = $_POST["peso"];
+        $altura = $_POST["altura"];
+
+        if ($altura > 0) {
+            $imc = $peso / ($altura * $altura);
+            $imcFormatado = number_format($imc, 2);
+
+            echo "<div class='resultado'>";
+            echo "<p><strong>Seu IMC é:</strong> $imcFormatado</p>";
+
+            if ($imc < 18.5) {
+                echo "<p>Classificação: <strong>Abaixo do peso 🐾</strong></p>";
+            } elseif ($imc < 25) {
+                echo "<p>Classificação: <strong>Peso normal 💖</strong></p>";
+            } elseif ($imc < 30) {
+                echo "<p>Classificação: <strong>Sobrepeso ✨</strong></p>";
+            } elseif ($imc < 35) {
+                echo "<p>Classificação: <strong>Obesidade grau 1 🌸</strong></p>";
+            } elseif ($imc < 40) {
+                echo "<p>Classificação: <strong>Obesidade grau 2 🌷</strong></p>";
+            } else {
+                echo "<p>Classificação: <strong>Obesidade grau 3 (mórbida) 💔</strong></p>";
+            }
+
+            echo "</div>";
+        }
+    }
+    ?>
+</body>
+</html>
